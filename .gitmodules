@@ -1,0 +1,3 @@
+[submodule "vagrant-node"]
+	path = vagrant-node
+	url = https://github.com/unrealguard/vagrant-node.git
