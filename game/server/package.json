@@ -1,0 +1,40 @@
+{
+  "name": "H5Games-Start",
+  "preferGlobal": "false",
+  "version": "0.0.1",
+  "author": "Bill Jones <example@example.com>",
+  "description": "Working through the HTML 5 games book",
+  "contributors": [ 
+    {
+      "name": "Bill Jones",
+      "email": "example@example.com"
+    } 
+  ],
+  "bin": {
+    
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unrealguard/H5Games-Start"
+  },
+  "keywords": [
+    
+  ],
+  "dependencies" : {
+	"connect": "2.7.x",
+	"log4js": "0.5.x"
+  },
+  "devDependencies": {
+    
+  },
+  "bundledDependencies": [
+    
+  ],  
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.6"
+  }
+}
