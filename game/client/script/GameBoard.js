@@ -16,7 +16,7 @@ define([], function () {
 		
 		// Mark an object for removal
 		this.remove = function(obj) { 
-			var wasStillAlive = this.removed.indexOf(obj) != -1;
+			var wasStillAlive = this.objects.indexOf(obj) != -1;
 			if(wasStillAlive) { this.removed.push(obj);  }
 			return wasStillAlive;
 		};
@@ -73,7 +73,9 @@ define([], function () {
 		this.collide = function(obj,type) {
 			return this.detect(function() {
 				if(obj != this) {
-					var col = (!type || this.type & type) && board.overlap(obj,this)
+					var isType = !type || this.type & type;
+					var overlap = board.overlap(obj, this);
+					var col = isType && overlap;
 					return col ? this : false;
 				}
 			});

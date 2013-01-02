@@ -3,7 +3,7 @@ define(['game/SpriteSheet'], function (SpriteSheet) {
 	
 	var Game = new function () {
 
-		this.initialize = function(canvasElementId,sprite_data,callback) {
+		this.initialize = function(canvasElementId, callback) {
 			this.canvas = document.getElementById(canvasElementId);
 			this.width = this.canvas.width;
 			this.height= this.canvas.height;
@@ -16,11 +16,11 @@ define(['game/SpriteSheet'], function (SpriteSheet) {
 			// Start the game loop
 			this.loop(); 
 			// Load the sprite sheet and pass forward the callback.
-			SpriteSheet.load(sprite_data,callback);
+			SpriteSheet.load(callback);
 		};
 		
 		// Handle Input
-		var KEY_CODES = { 37:'left', 39:'right', 32 :'fire' };
+		var KEY_CODES = {65:'left', 68:'right', 37:'left', 39:'right', 32 :'fire' };
 		this.keys = {};
 		
 		this.setupInput = function() {

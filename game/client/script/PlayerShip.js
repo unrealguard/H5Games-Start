@@ -1,14 +1,12 @@
-define(['game/SpriteSheet', 'game/Game', 'game/PlayerMissile'], 
-	function (SpriteSheet, Game, PlayerMissile) {
+define(['game/Game', 'game/PlayerMissile', 'game/Sprite'], 
+	function (Game, PlayerMissile, Sprite) {
 	console.info('Loading PlayerShip module');
 	
 	var PlayerShip = function() { 
-		this.w =  SpriteSheet.map['ship'].w;
-		this.h =  SpriteSheet.map['ship'].h;
+		this.setup('ship', { vx: 0, frame: 0, reloadTime: 0.25, maxVel: 200 });
+		
 		this.x = Game.width/2 - this.w / 2;
 		this.y = Game.height - 10 - this.h;
-		this.vx = 0;
-		this.reloadTime = 0.25;  // Quarter second reload
 		this.reload = this.reloadTime;
 
 		this.step = function(dt) {
@@ -37,11 +35,10 @@ define(['game/SpriteSheet', 'game/Game', 'game/PlayerMissile'],
 				}
 			}
 		}
-		
-		this.draw = function(ctx) {
-		 SpriteSheet.draw(ctx,'ship',this.x,this.y,0);
-		}
 	};
+	
+	PlayerShip.prototype = Sprite.GetInstance();
+	PlayerShip.prototype.type = Sprite.types.OBJECT_PLAYER;
 	
 	return PlayerShip;
 });
