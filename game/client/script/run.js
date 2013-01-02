@@ -11,20 +11,27 @@
 	
 	var onGameReady = function (Game, Starfield, TitleScreen) {
 		console.info('Game ready to start');
-		
-		var enemies = {
-			basic: { x: 100, y: -50, sprite: 'enemy_purple', B: 100, C: 2 , E: 100 }
-		};
+	
+		var level1 = [
+		 // Start,    End, Gap,  Type,   Override
+		  [ 0,       4000, 500, 'step' ],
+		  [ 6000,   13000, 800, 'ltr' ],
+		  [ 12000,  16000, 400, 'circle' ],
+		  [ 18200,  20000, 500, 'straight', { x: 150 } ],
+		  [ 18200,  20000, 500, 'straight', { x: 100 } ],	
+		  [ 18400,  20000, 500, 'straight', { x: 200 } ],
+		  [ 22000,  25000, 400, 'wiggle', { x: 300 }],
+		  [ 22000,  25000, 400, 'wiggle', { x: 200 }]
+		];
 		
 		var playGame = function() {
 			console.info('Playing the game');
 			
-			curl(['game/PlayerShip', 'game/GameBoard', 'game/Enemy'])
-			.then(function (PlayerShip, GameBoard, Enemy) {
+			curl(['game/PlayerShip', 'game/GameBoard', 'game/Level'])
+			.then(function (PlayerShip, GameBoard, Level) {
 					var board = new GameBoard();
-					board.add(new Enemy(enemies.basic));
-					board.add(new Enemy(enemies.basic, {x: 200}));
 					board.add(new PlayerShip());
+					board.add(new Level(level1,winGame));
 					Game.setBoard(3, board);	
 				}
 			);
@@ -37,6 +44,18 @@
 			Game.setBoard(3,new TitleScreen("Alien Invasion", 
 											"Press space to start playing",
 											playGame));											
+		}
+		
+		var winGame = function() {
+			Game.setBoard(3,new TitleScreen("You win!", 
+										  "Press fire to play again",
+										  playGame));
+		}
+		
+		var loseGame = function() {
+			Game.setBoard(3,new TitleScreen("You lose!", 
+										  "Press fire to play again",
+										  playGame));
 		}
 		
 		Game.initialize("game", startGame);

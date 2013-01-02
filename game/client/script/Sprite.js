@@ -34,6 +34,8 @@ define(['game/SpriteSheet'], function (SpriteSheet) {
 		this.board.remove(this);
 	}
 	
+	// Use GetInstance so we can expose types as static property and user must initialize
+	// a new Sprite and doesn't have direct access to this object.
 	return {
 		GetInstance: function () {
 			return new Sprite();

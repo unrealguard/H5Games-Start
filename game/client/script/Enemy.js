@@ -1,4 +1,4 @@
-define(['game/Sprite', 'game/Game'], function (Sprite, Game) {
+define(['game/Sprite', 'game/Game', 'game/Explosion'], function (Sprite, Game, Explosion) {
 
 	var Enemy = function(blueprint,override) {
 		this.merge(this.baseParameters);
@@ -21,10 +21,27 @@ define(['game/Sprite', 'game/Game'], function (Sprite, Game) {
 		this.vy = this.E + this.F * Math.sin(this.G * this.t + this.H);
 		this.x += this.vx * dt;
 		this.y += this.vy * dt;
+		
+		var collision = this.board.collide(this,Sprite.types.OBJECT_PLAYER);
+		if(collision) {
+			collision.hit(this.damage);
+			this.board.remove(this);
+		}
+		
 		if(this.y > Game.height ||
 		   this.x < -this.w ||
 		   this.x > Game.width) {
 				this.board.remove(this);
+		}
+	}
+	
+	Enemy.prototype.hit = function(damage) {
+	this.health -= damage;
+		if(this.health <=0) {
+			if(this.board.remove(this)) {
+				this.board.add(new Explosion(this.x + this.w/2, 
+								   this.y + this.h/2));
+			}
 		}
 	}
 	

@@ -40,5 +40,11 @@ define(['game/Game', 'game/PlayerMissile', 'game/Sprite'],
 	PlayerShip.prototype = Sprite.GetInstance();
 	PlayerShip.prototype.type = Sprite.types.OBJECT_PLAYER;
 	
+	PlayerShip.prototype.hit = function(damage) {
+		if(this.board.remove(this)) {
+			loseGame();
+		}
+	}
+	
 	return PlayerShip;
 });
